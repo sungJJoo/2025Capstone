@@ -11,20 +11,18 @@ import speech_recognition as sr
 from pyzbar import pyzbar
 import requests
 from bs4 import BeautifulSoup
-from datetime import datetime  # 추가된 부분
+from datetime import datetime
 
 # YOLO 모델 로드
 print("YOLO 모델을 로드하는 중...")
 model = YOLO("yolov8n.pt")
 print("YOLO 모델 로드 완료!")
 
-# pygame 초기화
 pygame.mixer.init()
 TEMP_AUDIO = "temp_alert"
 last_alert_audio = None
 mode = "object"
 
-# 위험 객체 정의
 DANGEROUS_OBJECTS = {
     0: "사람", 1: "자전거", 2: "자동차", 3: "오토바이", 5: "버스",
     7: "트럭", 9: "신호등", 13: "정지 표지판", 15: "벤치",
@@ -91,7 +89,7 @@ def voice_command_listener():
     print("✅ 음성 명령 리스너 시작됨")
     recognizer = sr.Recognizer()
     mic = sr.Microphone()
-    print("🎤 음성 명령 대기 중... (예: '종료', '다시 안내', '큐알', '객체', '메뉴')")
+    print("🎤 음성 명령 대기 중... (예: '종료', '다시 안내', '큐알', '객체', '메뉴', '시간')")
 
     with mic as source:
         recognizer.adjust_for_ambient_noise(source)
@@ -121,10 +119,11 @@ def voice_command_listener():
                     text_to_speech_async("객체 인식 모드로 전환되었습니다", "object", "start")
                 elif "메뉴" in command or "도움말" in command:
                     now = get_current_datetime()
-                    help_text = (
-                        f"가능한 명령어는 다음과 같습니다. 종료, 다시 안내, 큐알, 객체, 메뉴. 현재 시간은 {now}입니다."
-                    )
+                    help_text = f"가능한 명령어는 다음과 같습니다. 종료, 다시 안내, 큐알, 객체, 메뉴. 현재 시간은 {now}입니다."
                     text_to_speech_async(help_text, "menu", "help")
+                elif "시간" in command or "날짜" in command:
+                    now = get_current_datetime()
+                    text_to_speech_async(f"현재 시간은 {now}입니다", "time", "now")
 
             except sr.WaitTimeoutError:
                 continue
