@@ -16,6 +16,8 @@
 
 Smart Vision은 라즈베리파이5 기반으로 YOLOv8 객체 탐지, QR 코드 인식, TTS 음성 안내, 음성 명령 제어 등 다양한 기능을 통합한 실시간 사용자 보조 시스템입니다. 시각장애인이나 정보 접근이 어려운 사용자에게 실생활에서 안전성과 접근성을 제공합니다.
 
+또한 Flask 서버(`qrserver.py`)를 통해 QR 코드 접속용 웹페이지를 제공하고, 그에 대한 QR 이미지를 자동 생성합니다. `traffi5.py`와 함께 병렬 실행되어 QR 기반 콘텐츠와 객체 인식 기능이 함께 작동합니다.
+
 ---
 
 ## 🧩 사용된 기술 스택
@@ -27,17 +29,23 @@ Smart Vision은 라즈베리파이5 기반으로 YOLOv8 객체 탐지, QR 코드
 - **requests + BeautifulSoup4** – QR 링크 텍스트 파싱
 - **Picamera2 + threading** – 영상 입력 및 병렬 처리
 - **datetime / OS thermal API** – 시간 안내 및 CPU 온도 모니터링
+- **Flask** – 로컬 웹서버 구동 (메뉴 안내 페이지)
+- **qrcode** – QR 코드 생성
 
 ---
 
 ## 🛠 주요 기능
 
-### 🔎 객체 인식 모드
+### 🔎 객체 인식 모드 (`traffi5.py`)
 - 카메라 영상을 YOLOv8으로 분석하여 위험 객체(사람, 차량 등)를 인식
 - 방향(왼쪽/정면/오른쪽) 계산 후 한국어 음성으로 안내
 
 ### 📷 QR 코드 모드
 - QR 코드 인식 → URL 접속 → 텍스트 추출 → 실시간 음성 안내
+
+### 🛰 Flask 서버 동작 (`qrserver.py`)
+- QR 링크 접속용 로컬 웹페이지 제공 (예: 오늘의 메뉴)
+- `generate_qr()` 함수로 QR 이미지 생성 및 저장
 
 ### 🎙 음성 명령 제어
 - 명령어: "객체", "큐알", "온도", "시간", "다시 안내", "종료"
@@ -63,6 +71,8 @@ flowchart TD
     D --> F[requests → 파싱 → 안내]
     G[Mic → speech_recognition] --> H[명령어 분기]
     H --> B
+    I[Flask (qrserver.py)] --> J[HTML 메뉴 페이지]
+    J --> K[QR 코드 생성 → pyzbar 인식 → 정보 전달]
 ```
 
 ---
@@ -76,7 +86,7 @@ sudo apt update && sudo apt install -y libcamera-apps python3-picamera2
 
 ### 필수 패키지 설치
 ```bash
-pip install ultralytics gtts pygame speechrecognition pyzbar requests beautifulsoup4 opencv-python
+pip install ultralytics gtts pygame speechrecognition pyzbar requests beautifulsoup4 opencv-python flask qrcode
 ```
 
 ### YOLO 모델 다운로드 (경량화 모델)
@@ -85,9 +95,13 @@ from ultralytics import YOLO
 model = YOLO("yolov8n.pt")
 ```
 
-### 실행
+### 실행 (traffi5.py + qrserver.py)
 ```bash
-python main.py
+# 터미널 1
+python qrserver.py
+
+# 터미널 2
+python traffi5.py
 ```
 
 ---
@@ -109,12 +123,14 @@ python main.py
 
 ```
 SmartVision/
-├── traffic5.py
+├── traffi5.py
+├── qrserver.py
 ├── models/
 │   └── yolov8n.pt
 ├── assets/
 │   ├── demo.gif
 │   └── screenshots/
+├── qr_link.png
 ├── README.md
 └── requirements.txt
 ```
@@ -128,6 +144,7 @@ SmartVision/
 - 다국어 음성 안내 시스템 통합
 - YOLO 모델 TensorRT 최적화
 - GUI 기반 모드 선택 및 피드백 시스템
+- QR 콘텐츠 자동 변환 기능 추가
 
 ---
 
