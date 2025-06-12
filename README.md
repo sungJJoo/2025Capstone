@@ -103,7 +103,7 @@ python main.py
 
 ```
 SmartVision/
-├── main.py
+├── traffic5.py
 ├── models/
 │   └── yolov8n.pt
 ├── assets/
@@ -128,13 +128,10 @@ SmartVision/
 ## 👨‍💻 개발자 정보
 
 - **박성주 (Park Sungju)**
-- 📧 Email: your_email@example.com
-- 🌐 GitHub: [@your_id](https://github.com/your_id)
+- **이성택 (Lee Sungtack)**
 
 ---
 
 ## 📄 라이선스
-
-본 프로젝트는 MIT 라이선스 하에 배포됩니다.
 
 > 본 시스템은 라즈베리파이5에서 테스트되었으며, 실시간 음성 및 영상 처리를 위한 최적화가 필요합니다.
