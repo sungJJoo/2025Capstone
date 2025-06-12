@@ -1,3 +1,3 @@
-# 2025-캡스톤
-2025년 1학기 캡스톤 저장소
-시각장애인 도우미 프로그램을 만들게 된 박성주,이성택이라고 합니다.
+# 🦾 Smart Vision: AI 기반 실시간 장애물 인식 보조 시스템  
+![Python](https://img.shields.io/badge/Python-3.9-blue)  
+![YOLOv8](https://img.shields.io/badge/YOLOv8-object--detection-green)  
