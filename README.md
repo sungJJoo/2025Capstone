@@ -151,8 +151,8 @@ SmartVision/
 
 ## 👨‍💻 개발자 정보
 
-- **박성주 (Park Sungjoo)**
-- **이성택 (Lee Seong Taek)**
+- **박성주 (Park Sungjoo) Shim_0486@naver.com**
+- **이성택 (Lee Seong Taek) dltjdxor0407@naver.com**
 
 ---
 
