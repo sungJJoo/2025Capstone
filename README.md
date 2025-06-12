@@ -3,6 +3,12 @@
 ![Python](https://img.shields.io/badge/Python-3.9-blue)
 ![YOLOv8](https://img.shields.io/badge/YOLOv8-object--detection-green)
 ![RaspberryPi](https://img.shields.io/badge/RaspberryPi-5-red)
+![gTTS](https://img.shields.io/badge/gTTS-TTS-yellow)
+![SpeechRecognition](https://img.shields.io/badge/speech--recognition-voice--command-orange)
+![OpenCV](https://img.shields.io/badge/OpenCV-vision--processing-lightgrey)
+![Flask](https://img.shields.io/badge/Flask-webserver-black)
+![QRcode](https://img.shields.io/badge/qrcode-generator-blueviolet)
+![Picamera2](https://img.shields.io/badge/Picamera2-camera--input-success)
 
 ---
 
