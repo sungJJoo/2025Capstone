@@ -71,8 +71,8 @@ flowchart TD
     D --> F[requests → 파싱 → 안내]
     G[Mic → speech_recognition] --> H[명령어 분기]
     H --> B
-    I[Flask (qrserver.py)] --> J[HTML 메뉴 페이지]
-    J --> K[QR 코드 생성 → pyzbar 인식 → 정보 전달]
+    I[Flask 서버 실행] --> J[HTML 메뉴 페이지 제공]
+    J --> K[QR 코드 생성 및 pyzbar 인식 → 정보 전달]
 ```
 
 ---
